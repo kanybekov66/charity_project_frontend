@@ -6,17 +6,30 @@ export default class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: '',
+            "name": "",
+            "username": "",
+            "email": "",
+            "phone_number": 123,
+            "password": "",
+            "password2": ""
         };
-        this.handleEmail = this.handleEmail.bind(this);
-        this.handlePassword = this.handlePassword.bind(this);
         this.handleFirstName = this.handleFirstName.bind(this);
         this.handleLastName = this.handleLastName.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.handlePassword2 = this.handlePassword2.bind(this);
+        this.login = this.login.bind(this);
         this.justTest = this.justTest.bind(this);
       }
+
+    login(event) {
+        fetch(`http://localhost:8000/donators/create/`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(this.state)
+            }).then( response => response.json())
+            .catch( error => console.log(error));
+            }
 
     handleEmail(event) {
         this.setState({email: event.target.value});
@@ -27,21 +40,26 @@ export default class SignUp extends Component {
         this.setState({password: event.target.value});
       };
 
+    handlePassword2(event) {
+        this.setState({password2: event.target.value});
+      };
+
     handleFirstName(event) {
-        this.setState({firstName: event.target.value});
+        this.setState({name: event.target.value});
       };
 
 
     handleLastName(event) {
-        this.setState({lastName: event.target.value});
+        this.setState({username: event.target.value});
       };
 
     //тут просто проверка - действительно ли сохраняются почта и пароль
     justTest(event){
-        alert(this.state.email);
-        alert(this.state.password);
-        alert(this.state.firstName);
-        alert(this.state.lastName);
+        alert(`this is name ${this.state.name}`);
+        alert(`this is username ${this.state.username}`);
+        alert(`this is email ${this.state.email}`);
+        alert(`this is password ${this.state.password}`);
+        alert(`this is second password ${this.state.password2}`)
     };
     //   Вообще хз что это:
     //   myChangeHandler = (event) => {  
@@ -80,10 +98,15 @@ export default class SignUp extends Component {
                     <label>Password</label>
                     <input type="password" className="form-control" 
                     placeholder="Enter password" required
-                    value={this.state.value} onChange={this.handlePassword}/>
+                    value={this.state.value} onChange={this.handlePassword}
+                    onChange={this.handlePassword2}/>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block" onClick={this.justTest}>Sign Up</button>
+                <button 
+                    type="submit" className="btn btn-primary btn-block" 
+                    onClick={this.login}>
+                    Sign Up
+                </button>
                 <p className="forgot-password text-right">
                     Already registered <a href="sign-in">sign in?</a>
                 </p>
