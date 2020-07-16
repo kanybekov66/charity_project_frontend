@@ -25,7 +25,7 @@ export default class SignUp extends Component {
     
     login(event) {
         alert(JSON.stringify(this.state));
-        fetch(`http://127.0.0.1:8000/donators/`, {
+        fetch(`http://127.0.0.1:8000/donators/create/`, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(this.state)
