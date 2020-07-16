@@ -3,6 +3,7 @@ import React, { Component } from "react";
 
 export default class SignUp extends Component {
 
+    //по неведомым мне причинам не сохраняется первый пароль, нужно попозже
     constructor(props) {
         super(props);
         this.state = {
@@ -10,21 +11,22 @@ export default class SignUp extends Component {
             "username": "",
             "email": "",
             "phone_number": 123,
-            "password": "",
-            "password2": ""
+            "password": "test_password123",
+            "password2": "test_password123"
         };
         this.handleFirstName = this.handleFirstName.bind(this);
         this.handleLastName = this.handleLastName.bind(this);
         this.handleEmail = this.handleEmail.bind(this);
-        this.handlePassword = this.handlePassword.bind(this);
-        this.handlePassword2 = this.handlePassword2.bind(this);
+        // this.handlePassword = this.handlePassword.bind(this);
+        // this.handlePassword2 = this.handlePassword2.bind(this);
         this.login = this.login.bind(this);
         this.justTest = this.justTest.bind(this);
       }
-
+    
     login(event) {
-        fetch(`http://localhost:8000/donators/create/`, {
-            method: 'POST',
+        alert(JSON.stringify(this.state));
+        fetch(`http://127.0.0.1:8000/donators/`, {
+            method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(this.state)
             }).then( response => response.json())
@@ -36,13 +38,13 @@ export default class SignUp extends Component {
       };
 
 
-    handlePassword(event) {
-        this.setState({password: event.target.value});
-      };
+    // // handlePassword(event) {
+    //     this.setState({password: event.target.value});
+    //   };
 
-    handlePassword2(event) {
-        this.setState({password2: event.target.value});
-      };
+    // handlePassword2(event) {
+    //     this.setState({password2: event.target.value});
+    //   };
 
     handleFirstName(event) {
         this.setState({name: event.target.value});
@@ -96,10 +98,11 @@ export default class SignUp extends Component {
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control" 
+                    <input type="text" className="form-control" 
                     placeholder="Enter password" required
-                    value={this.state.value} onChange={this.handlePassword}
-                    onChange={this.handlePassword2}/>
+                    // value={this.state.value} onChange={this.handlePassword}
+                    // onChange={this.handlePassword2}
+                    />
                 </div>
 
                 <button 
